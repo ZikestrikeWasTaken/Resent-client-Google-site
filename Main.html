@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Resent Client</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Full screen styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Container for iframe and button */
+        #container {
+            height: 100%;
+            position: relative;
+        }
+
+        /* Style the play button */
+        .play-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;  /* Full viewport width */
+            height: 100vh; /* Full viewport height */
+            background: #000;
+            color: #fff;
+            font: 32px Impact, sans-serif;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            transition: background-color 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: #4a148c;
+        }
+
+        /* Handle unblocked text */
+        #unblocked-text {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 16px;
+            z-index: 1002;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- Full-screen button that takes up the entire screen -->
+        <button class="play-button" type="button" onclick="openResentClient()">Open Resent Client</button>
+       
+        <!-- Optional text message or alert for unblocking -->
+        <p id="unblocked-text"></p>
+    </div>
+
+    <script>
+        // Function to open content in a new tab
+        function openResentClient() {
+            // Open a new blank tab
+            const newWindow = window.open('about:blank', '_blank');
+           
+            // Fetch content from the URL
+            fetch('https://raw.githubusercontent.com/ZikestrikeWasTaken/Resent-client-for-jsdelivr/refs/heads/main/Resent.html')
+                .then(response => response.text())  // Convert response to text
+                .then(data => {
+                    // Write the fetched HTML content into the new window
+                    newWindow.document.open();
+                    newWindow.document.write(data);
+                    newWindow.document.close();
+                })
+                .catch(error => {
+                    console.error('Error fetching the content:', error);
+                    alert('Failed to load content. Please try again later.');
+                });
+
+            // Optionally hide the button when clicked (if desired)
+            document.querySelector(".play-button").style.display = "none";
+        }
+    </script>
+</body>
+</html>
